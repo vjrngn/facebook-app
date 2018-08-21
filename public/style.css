@@ -50,6 +50,10 @@
   font-size: 0.75em;
 }
 
+.text-xs {
+  font-size: 0.55em;
+}
+
 .text-gray {
   color: gray;
 }

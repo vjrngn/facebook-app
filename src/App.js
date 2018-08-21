@@ -1,19 +1,51 @@
+import Wall from "./components/Wall";
 import React, { Component } from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import {
+  Container,
+  Card,
+  CardBody,
+  CardTitle,
+  CardFooter,
+  Button,
+  Form,
+  Input,
+} from "reactstrap";
 
 class App extends Component {
+  state = {
+    posts: [],
+  };
+
+  componentDidMount() {
+    fetch("http://localhost:3000/")
+      .then(res => res.json())
+      .then(res => {
+        this.setState({
+          posts: res.posts,
+        });
+      });
+  }
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Facebook</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+      <Container className="wall">
+        <Card>
+          <CardBody>
+            <CardTitle className="flex">
+              <Form>
+                <Input type="textarea" placeholder="What's on your mind ?" />
+              </Form>
+            </CardTitle>
+          </CardBody>
+          <CardFooter className="bg-transparent no-border">
+            <hr />
+            <Button color="primary" size="sm">
+              Post
+            </Button>
+          </CardFooter>
+        </Card>
+        <Wall posts={this.state.posts} />
+      </Container>
     );
   }
 }
